@@ -43,8 +43,13 @@ class MemoryBlock16Kb(MemoryBlock):
 		self.cells =  {i: MemoryCell() for i in range(8)}
 		super().__init__()
 	
-	def same_key(self, _key):
-		return None
-		#return self.cell{
+	def same_key(self, index, _key):
+		return self.cells[index].get_key() == _key
+	
+	def get_memory(self, index):
+		return self.cells[index].get_memory()
 
+	def set_key(self, index, tag):
+		self.on  = True
+		self.cells[index].set_key(tag)
 	

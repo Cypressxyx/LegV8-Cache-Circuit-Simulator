@@ -46,24 +46,18 @@ tag, index, offset
 class Memory16Kb(Memory):
 
 	def __init__(self):
-		self.memory_blocks = {i : MemoryBlock16Kb() for i in range(8)}
+		self.memory_blocks = {i : MemoryBlock16Kb() for i in range(9)}
 		super().__init__()
 
 	def load(self, value):
-		block_location = int(value//8) # Floor of value / 8
-		memory_block   = self.memory_blocks[block_location]
 		tag, index, offset = parse_memory_location_8_bits(value)
+		memory_block   = self.memory_blocks[index]
 			
 		if memory_block.is_on():
-			print("x")
-			
-		
-		
-	
-	
-		
-		
-		
-		
-
-	
+			if memory_block.same_key(offset, tag):
+				return memory_block.get_memory(offset)
+			self.misses.conflict += 1
+		else:
+			self.misses.compulsory += 1
+		print(index)
+		memory_block.set_key(index, tag)
