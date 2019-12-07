@@ -1,5 +1,5 @@
 """
-Definition: A memory class that contains 8 blocks of memeory
+Definition: A memory class that contains 1 blocks of memeory
 	0: 000 
 	1: 001
 	2: 010
@@ -9,23 +9,24 @@ Definition: A memory class that contains 8 blocks of memeory
 	6: 110
 	7: 111
 
-Compulsory miss: item has never been in the cache.
 Capacity miss: item has been in the cache, but space was tight and it was forced out.
 Conflict miss: item was in the cache, but the cache was not associative enough, so it was forced out.
+Compulsory miss: item has never been in the cache.
 """
 from MemoryModule.memory import Memory
-from MemoryModule.memory_tools import parse_memory_location
+from MemoryModule.memory_tools import parse_memory_location_five_bits, parse_memory_location_8_bits
 from MemoryModule.memory_block import MemoryBlock, MemoryBlock16Kb
 
 class Memory1Kb(Memory):
+
 	def __init__(self):
 		self.memory_blocks = {i : MemoryBlock() for i in range(8)} # Create memory blocks with index 0 - 3
 		super().__init__()
 
 
 	# Load a cached value from memory if exist else store
-	def load(self, memory_location):
-		index, key   = parse_memory_location(memory_location)
+	def load(self, value):
+		index, key   = parse_memory_location_five_bits(value)
 		memory_block = self.memory_blocks[index]
 		if memory_block.is_on():
 			if memory_block.same_key(key):
@@ -34,10 +35,25 @@ class Memory1Kb(Memory):
 		else:
 			self.misses.compulsory += 1
 		memory_block.set_key(key)
-			
+
+"""
+Definition: A memory class that contains 8 blocks of memeory
+|----------|
+|xx|xxx|xxx|
+|----------|
+tag, index, offset
+"""
 class Memory16Kb(Memory):
 
 	def __init__(self):
 		self.memory_blocks = {i : MemoryBlock16Kb() for i in range(8)}
 		super().__init__()
+
+	def load(self, value):
+		print("h")
+		
+		
+		
+		
+
 	
