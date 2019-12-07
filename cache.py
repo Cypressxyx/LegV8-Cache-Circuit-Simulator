@@ -10,7 +10,7 @@ for i in range(2):
 	for j in range(10):
 		mem.load(j)
 
-print(mem)
+print(mem.get_misses())
 """
 def test_cache():
 	for i in range(2):
