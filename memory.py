@@ -21,9 +21,7 @@ class Memory:
 	def __init__(self):
 		self.memory_blocks = {i : MemoryBlock() for i in range(8)} # Create memory blocks with index 0 - 3
 		self.num_compulsory_miss = 0
-		self.misses = { "compulsory": 0, 
-										"capacity": 0, 
-										"conflict": 0 }
+		self.misses = { "compulsory": 0, "capacity": 0, "conflict": 0 }
 
 	# Load a cached value from memory if exist else store
 	def load(self, memory_location):
