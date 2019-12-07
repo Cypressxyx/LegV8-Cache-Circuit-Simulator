@@ -12,6 +12,18 @@ class Memory:
 	def get_misses(self):
 		return self.misses
 
+	def load_value(self, memory_block, tag, offset=None):
+		if memory_block.is_on():
+			if memory_block.same_tag(tag):
+				value  = memory_block.get_memory(offset) if offset != None else memory_block.get_memory()
+				return value
+			self.misses.conflict += 1
+		else:
+			self.misses.compulsory += 1
+		memory_block.set_tag(tag)
+
+
+
 """
 Definition: A memory class that contains 1 blocks of memory
 """
@@ -26,13 +38,7 @@ class Memory1Kb(Memory):
 	def load(self, value):
 		index, tag   = parse_memory_location_five_bits(value)
 		memory_block = self.memory_blocks[index]
-		if memory_block.is_on():
-			if memory_block.same_tag(tag):
-				return memory_block.get_memory()
-			self.misses.conflict += 1
-		else:
-			self.misses.compulsory += 1
-		memory_block.set_tag(tag)
+		self.load_value(memory_block, tag)
 
 """
 Definition: A memory class that contains 8 blocks of memeory
@@ -50,10 +56,4 @@ class Memory16Kb(Memory):
 	def load(self, value):
 		tag, index, offset = parse_memory_location_8_bits(value)
 		memory_block   = self.memory_blocks[index]
-		if memory_block.is_on():
-			if memory_block.same_tag(tag):
-				return memory_block.get_memory(offset)
-			self.misses.conflict += 1
-		else:
-			self.misses.compulsory += 1
-		memory_block.set_tag(tag)
+		self.load_value(memory_block, tag, offset)
