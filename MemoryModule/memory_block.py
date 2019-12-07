@@ -1,10 +1,9 @@
 from MemoryModule.memory_cell import MemoryCell 
 
 """
- Defintion: Class Based implementation of a memory block cache
-						Memory Block defined as having:
-							- 1 col cell
-							- V Value (on or off)
+Defintion: Parent class defining
+	- V value (is on)
+	- Tag
 """
 class MemoryBlock:
 	def __init__(self):
@@ -24,6 +23,9 @@ class MemoryBlock:
 	def same_tag(self, _tag):
 		return self.get_tag() == _tag
 		
+"""
+Defintion: Class Based implementation of a memory block with 1kb( Only contains 1 memory cell)
+"""
 class MemoryBlock1Kb(MemoryBlock):
 	def __init__(self):	
 		self.cell  = MemoryCell()
@@ -33,10 +35,7 @@ class MemoryBlock1Kb(MemoryBlock):
 		return self.cell.get_memory()
 
 """
- Defintion: Class Based implementation of a memory block cache
-						with 16 bits
-							- 1 col cell
-							- V Value (on or off)
+Defintion: Class Based implementation of a memory block cache with 16 bits ( 8 memory cells)
 """
 class MemoryBlock16Kb(MemoryBlock):
 	def __init__(self):
@@ -45,4 +44,3 @@ class MemoryBlock16Kb(MemoryBlock):
 	
 	def get_memory(self, offset):
 		return self.cells[offset].get_memory()
-
