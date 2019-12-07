@@ -7,12 +7,17 @@ from MemoryModule.memory_cell import MemoryCell
 							- V Value (on or off)
 """
 class MemoryBlock:
-	def __init__(self):	
-		self.cell  = MemoryCell()
-		self.on    = False
+	def __init__(self):
+		self.on = False
 
 	def is_on(self):
 		return self.on
+
+
+class MemoryBlock1Kb(MemoryBlock):
+	def __init__(self):	
+		self.cell  = MemoryCell()
+		super().__init__()
 
 	def set_key(self, value):	
 		self.on  = True
@@ -33,13 +38,10 @@ class MemoryBlock:
 							- 1 col cell
 							- V Value (on or off)
 """
-class MemoryBlock16Kb:
+class MemoryBlock16Kb(MemoryBlock):
 	def __init__(self):
 		self.cells =  {i: MemoryCell() for i in range(8)}
-		self.on = False
-
-	def is_on(self):
-		return self.on
+		super().__init__()
 	
 	def same_key(self, _key):
 		return None

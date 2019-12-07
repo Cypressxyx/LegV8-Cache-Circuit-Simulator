@@ -15,12 +15,12 @@ Compulsory miss: item has never been in the cache.
 """
 from MemoryModule.memory import Memory
 from MemoryModule.memory_tools import parse_memory_location_five_bits, parse_memory_location_8_bits
-from MemoryModule.memory_block import MemoryBlock, MemoryBlock16Kb
+from MemoryModule.memory_block import MemoryBlock1Kb, MemoryBlock16Kb
 
 class Memory1Kb(Memory):
 
 	def __init__(self):
-		self.memory_blocks = {i : MemoryBlock() for i in range(8)} # Create memory blocks with index 0 - 3
+		self.memory_blocks = {i : MemoryBlock1Kb() for i in range(8)} # Create memory blocks with index 0 - 3
 		super().__init__()
 
 
@@ -50,7 +50,17 @@ class Memory16Kb(Memory):
 		super().__init__()
 
 	def load(self, value):
-		print("h")
+		block_location = int(value//8) # Floor of value / 8
+		memory_block   = self.memory_blocks[block_location]
+		tag, index, offset = parse_memory_location_8_bits(value)
+			
+		if memory_block.is_on():
+			print("x")
+			
+		
+		
+	
+	
 		
 		
 		
