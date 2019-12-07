@@ -26,15 +26,15 @@ class Memory1Kb(Memory):
 
 	# Load a cached value from memory if exist else store
 	def load(self, value):
-		index, key   = parse_memory_location_five_bits(value)
+		index, tag   = parse_memory_location_five_bits(value)
 		memory_block = self.memory_blocks[index]
 		if memory_block.is_on():
-			if memory_block.same_key(key):
+			if memory_block.same_tag(tag):
 				return memory_block.get_memory()
 			self.misses.conflict += 1
 		else:
 			self.misses.compulsory += 1
-		memory_block.set_key(key)
+		memory_block.set_tag(tag)
 
 """
 Definition: A memory class that contains 8 blocks of memeory
@@ -54,10 +54,10 @@ class Memory16Kb(Memory):
 		memory_block   = self.memory_blocks[index]
 			
 		if memory_block.is_on():
-			if memory_block.same_key(offset, tag):
+			if memory_block.same_tag(offset, tag):
 				return memory_block.get_memory(offset)
 			self.misses.conflict += 1
 		else:
 			self.misses.compulsory += 1
 		print(index)
-		memory_block.set_key(index, tag)
+		memory_block.set_tag(index, tag)

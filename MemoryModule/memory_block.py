@@ -9,25 +9,25 @@ from MemoryModule.memory_cell import MemoryCell
 class MemoryBlock:
 	def __init__(self):
 		self.on = False
+		self.tag = None
 
 	def is_on(self):
 		return self.on
+	
+	def set_tag(self, _tag):
+		self.on  = True
+		self.tag = _tag
+	
+	def get_tag(self):
+		return self.tag
 
-
+	def same_tag(self, _tag):
+		return self.get_tag() == _tag
+		
 class MemoryBlock1Kb(MemoryBlock):
 	def __init__(self):	
 		self.cell  = MemoryCell()
 		super().__init__()
-
-	def set_key(self, value):	
-		self.on  = True
-		self.cell.set_key(value)
-
-	def get_key(self):
-		return self.cell.get_key()
-	
-	def same_key(self, _key):
-		return self.get_key() == _key
 
 	def get_memory(self):
 		return self.cell.get_memory()
@@ -43,13 +43,6 @@ class MemoryBlock16Kb(MemoryBlock):
 		self.cells =  {i: MemoryCell() for i in range(8)}
 		super().__init__()
 	
-	def same_key(self, index, _key):
-		return self.cells[index].get_key() == _key
-	
 	def get_memory(self, index):
 		return self.cells[index].get_memory()
 
-	def set_key(self, index, tag):
-		self.on  = True
-		self.cells[index].set_key(tag)
-	
