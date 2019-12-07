@@ -3,7 +3,7 @@ Test the cache using example
 From Class
 There should only be a few misses 8 / 24? 
 """
-from memory import Memory
+from MemoryModule.memory import Memory
 
 mem = Memory()
 for i in range(2):
