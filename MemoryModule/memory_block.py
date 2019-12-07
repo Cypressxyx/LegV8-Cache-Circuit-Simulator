@@ -43,6 +43,6 @@ class MemoryBlock16Kb(MemoryBlock):
 		self.cells =  {i: MemoryCell() for i in range(8)}
 		super().__init__()
 	
-	def get_memory(self, index):
-		return self.cells[index].get_memory()
+	def get_memory(self, offset):
+		return self.cells[offset].get_memory()
 

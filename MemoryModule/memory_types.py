@@ -52,12 +52,10 @@ class Memory16Kb(Memory):
 	def load(self, value):
 		tag, index, offset = parse_memory_location_8_bits(value)
 		memory_block   = self.memory_blocks[index]
-			
 		if memory_block.is_on():
-			if memory_block.same_tag(offset, tag):
+			if memory_block.same_tag(tag):
 				return memory_block.get_memory(offset)
 			self.misses.conflict += 1
 		else:
 			self.misses.compulsory += 1
-		print(index)
-		memory_block.set_tag(index, tag)
+		memory_block.set_tag(tag)
